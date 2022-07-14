@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css">
+	<title></title>
+</head>
+<body>
+	<div class="main-container">
+		<h1>Project Of weather Report</h1>
+		<input type="text" id="city" placeholder="Enter City Name">
+		<button type="submit" id="check" class="check" onclick="getData()">Fatch Weather Condation</button>
+		<div class="temp-container" id="temp-container">
+			<div id="temp-data">
+				Temperature= Null
+			</div>
+			<div id="temp-data1">
+				Feels like = Null
+			</div>
+			<div id="temp-data2">
+				Humidity = Null
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	function getData() {
+		var cityName = document.getElementById("city").value;
+	
+	fetch('https://api.openweathermap.org/data/2.5/weather?q='+cityName+' &units=metric&appid=98d0ee04faf1abedf4744ac3940007f4')
+  .then((response) => {
+    return response.json();
+  })
+  .then((myJson) => {
+    console.log(myJson);
+    console.log(myJson.main.temp);
+    document.getElementById('temp-data').innerHTML = "Temperature= "+ myJson.main.temp +" °C";
+    document.getElementById('temp-data1').innerHTML = "Feels Like= "+ myJson.main.feels_like ;
+    document.getElementById('temp-data2').innerHTML = "Humidity= "+ myJson.main.humidity ;
+
+  })
+  .catch(function(){
+	  	console.log("error");
+	  	document.getElementById("temp-container").innerHTML = "Please enter valid city name.";
+	  });}
+</script>
+</body>
+</html>
